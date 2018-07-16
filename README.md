@@ -11,7 +11,6 @@ Silexの簡単にサービスプロバイダやイベントを作成できると
 MITライセンスとします。
 
 ## Installation
-src以下をプロジェクトに追加するか、Composerを使用してください。
 ```
 composer require n0wada/silexagain
 ```
