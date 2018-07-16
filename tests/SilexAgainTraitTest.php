@@ -105,4 +105,29 @@ class SilexAgainTraitTest extends \PHPUnit_Framework_TestCase
 
         $app->dispatch(SilexAgainEvents::AUTH_EVENT);
     }
+
+    /**
+     * test dispatch a right event
+     */
+    public function testGetEventDispatcher()
+    {
+        /** @var SilexAgainTrait $app */
+        $app = $this->getMockForTrait('SilexAgain\SilexAgainTrait');
+
+        $dispatcher = $app->getEventDispatcher();
+
+        $is_called = false;
+
+        $dispatcher->on(SilexAgainEvents::AUTH_EVENT, function ($app, $phpunit, $array) use (&$is_called) {
+            /** @var $phpunit \PHPUnit_Framework_TestCase */
+            $phpunit->assertTrue(method_exists($app, 'register'));
+            $phpunit->assertInstanceOf('\PHPUnit_Framework_TestCase', $phpunit);
+            $phpunit->assertTrue($array === []);
+            $is_called = true;
+        });
+
+        $app->dispatch(SilexAgainEvents::AUTH_EVENT, $this, []);
+
+        if (!$is_called) $this->fail("event_callback doesn't called");
+    }
 }

@@ -67,4 +67,14 @@ trait SilexAgainTrait
             }
         }
     }
+
+    /**
+     * Delegates event dispatch.
+     *
+     * @return EventDispatcher
+     */
+    public function getEventDispatcher()
+    {
+        return new EventDispatcher($this);
+    }
 }
