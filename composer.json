@@ -1,0 +1,27 @@
+{
+  "name": "n0wada/silexagain",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Naoto Owada",
+      "email": "naoto0wada@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": ">=4.8 < 6.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "SilexAgain\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests"
+    }
+  }
+}
