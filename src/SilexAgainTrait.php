@@ -21,7 +21,7 @@ trait SilexAgainTrait
     /**
      * Boots all service providers.
      *
-     * @return SilexAgainTrait $this
+     * @return self $this
      */
     public function boot()
     {
