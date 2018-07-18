@@ -47,7 +47,7 @@ $app = new myApp();
     
 $app->register(new YourServiceProvider());
     
-$$app->before(function () {
+$app->before(function () {
      echo "before_event!";
 });
     
@@ -58,10 +58,5 @@ $app->get("/", function () use ($app) {
 $app->boot()->run();
 ```
 
-
-  
-        
-        
-        
 
 
