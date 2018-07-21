@@ -4,8 +4,8 @@ namespace SilexAgain;
 
 trait SilexAgainTrait
 {
-    private $providers = [];
-    private $listeners = [];
+    private $_providers = [];
+    private $_listeners = [];
 
     /**
      * Registers a service provider.
@@ -14,7 +14,7 @@ trait SilexAgainTrait
      */
     public function register(ServiceProviderInterface $provider)
     {
-        $this->providers[] = $provider;
+        $this->_providers[] = $provider;
         $provider->register($this);
     }
 
@@ -25,7 +25,7 @@ trait SilexAgainTrait
      */
     public function boot()
     {
-        foreach ($this->providers as $provider) {
+        foreach ($this->_providers as $provider) {
             if ($provider instanceof BootableProviderInterface) {
                 $provider->boot($this);
             }
@@ -46,7 +46,7 @@ trait SilexAgainTrait
             throw new \InvalidArgumentException('$listener must be a callable');
         }
 
-        $this->listeners[$eventName][] = $listener;
+        $this->_listeners[$eventName][] = $listener;
     }
 
     /**
@@ -57,12 +57,12 @@ trait SilexAgainTrait
      */
     public function dispatch($eventName, $args = [])
     {
-        if (isset($this->listeners[$eventName])) {
+        if (isset($this->_listeners[$eventName])) {
 
             // $args = [$this, $arg1, $arg2...]
             $args = array_replace(func_get_args(), [$this]);
 
-            foreach ($this->listeners[$eventName] as $listener) {
+            foreach ($this->_listeners[$eventName] as $listener) {
                 call_user_func_array($listener, $args);
             }
         }

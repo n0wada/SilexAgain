@@ -20,8 +20,8 @@ webアプリケーションSilexAgainTraitをクラスに適用することで�
 Slimを使う場合は以下のような感じです。   
 beforeやafterメソッドは名前が衝突しないように自分で定義してください。
   
-SilexのServiceProviderは使えません。プロバイダーにpimpleを渡す必要があり、  
-Silexをそのまま使えばいいじゃん、となってしまうからです。
+SilexのServiceProviderは使えません。
+Providerにはコンテナではなくアプリケーション本体を渡してください。
     
 SilexAgain\ServiceProviderInterfaceまたはSilexAgain\BootableProviderInterfaceを  
 implementsしたクラスを作成するようにしてください。

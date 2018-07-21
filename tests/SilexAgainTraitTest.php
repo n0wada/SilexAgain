@@ -3,7 +3,7 @@
 namespace Tests;
 
 use SilexAgain\SilexAgainTrait;
-use SilexAgain\SilexAgainEvents;
+use SilexAgain\Events;
 
 class SilexAgainTraitTest extends \PHPUnit_Framework_TestCase
 {
@@ -46,11 +46,11 @@ class SilexAgainTraitTest extends \PHPUnit_Framework_TestCase
         /** @var SilexAgainTrait $app */
         $app = $this->getMockForTrait('SilexAgain\SilexAgainTrait');
 
-        $app->on(SilexAgainEvents::AUTH_EVENT, function () use (&$is_called) {
+        $app->on(Events::AUTH_EVENT, function () use (&$is_called) {
             $is_called = true;
         });
 
-        $app->dispatch(SilexAgainEvents::AUTH_EVENT, []);
+        $app->dispatch(Events::AUTH_EVENT, []);
 
         if (!$is_called) $this->fail("event_callback doesn't called");
     }
@@ -63,7 +63,7 @@ class SilexAgainTraitTest extends \PHPUnit_Framework_TestCase
         /** @var SilexAgainTrait $app */
         $app = $this->getMockForTrait('SilexAgain\SilexAgainTrait');
 
-        $app->on(SilexAgainEvents::BEFORE_EVENT, function ($app, $phpunit, $array) {
+        $app->on(Events::BEFORE_EVENT, function ($app, $phpunit, $array) {
             /** @var \PHPUnit_Framework_TestCase $phpunit */
             $phpunit->assertTrue(method_exists($app, 'register'));
             $phpunit->assertInstanceOf('\PHPUnit_Framework_TestCase', $phpunit);
@@ -71,14 +71,14 @@ class SilexAgainTraitTest extends \PHPUnit_Framework_TestCase
             $phpunit->fail("called wrong event");
         });
 
-        $app->on(SilexAgainEvents::AUTH_EVENT, function ($app, $phpunit, $array) {
+        $app->on(Events::AUTH_EVENT, function ($app, $phpunit, $array) {
             /** @var $phpunit \PHPUnit_Framework_TestCase */
             $phpunit->assertTrue(method_exists($app, 'register'));
             $phpunit->assertInstanceOf('\PHPUnit_Framework_TestCase', $phpunit);
             $phpunit->assertTrue($array === []);
         });
 
-        $app->on(SilexAgainEvents::AFTER_EVENT, function ($app, $phpunit, $array) {
+        $app->on(Events::AFTER_EVENT, function ($app, $phpunit, $array) {
             /** @var $phpunit \PHPUnit_Framework_TestCase */
             $phpunit->assertTrue(method_exists($app, 'register'));
             $phpunit->assertInstanceOf('\PHPUnit_Framework_TestCase', $phpunit);
@@ -86,7 +86,7 @@ class SilexAgainTraitTest extends \PHPUnit_Framework_TestCase
             $phpunit->fail("called wrong event");
         });
 
-        $app->dispatch(SilexAgainEvents::AUTH_EVENT, $this, []);
+        $app->dispatch(Events::AUTH_EVENT, $this, []);
     }
 
     /**
@@ -98,12 +98,12 @@ class SilexAgainTraitTest extends \PHPUnit_Framework_TestCase
         $app = $this->getMockForTrait('SilexAgain\SilexAgainTrait');
         $self = $this;
 
-        $app->on(SilexAgainEvents::AUTH_EVENT, function ($app) use ($self) {
+        $app->on(Events::AUTH_EVENT, function ($app) use ($self) {
             $self->assertTrue(method_exists($app, 'register'));
             $self->assertTrue(func_num_args() === 1);
         });
 
-        $app->dispatch(SilexAgainEvents::AUTH_EVENT);
+        $app->dispatch(Events::AUTH_EVENT);
     }
 
     /**
@@ -118,7 +118,7 @@ class SilexAgainTraitTest extends \PHPUnit_Framework_TestCase
 
         $is_called = false;
 
-        $dispatcher->on(SilexAgainEvents::AUTH_EVENT, function ($app, $phpunit, $array) use (&$is_called) {
+        $dispatcher->on(Events::AUTH_EVENT, function ($app, $phpunit, $array) use (&$is_called) {
             /** @var $phpunit \PHPUnit_Framework_TestCase */
             $phpunit->assertTrue(method_exists($app, 'register'));
             $phpunit->assertInstanceOf('\PHPUnit_Framework_TestCase', $phpunit);
@@ -126,7 +126,7 @@ class SilexAgainTraitTest extends \PHPUnit_Framework_TestCase
             $is_called = true;
         });
 
-        $app->dispatch(SilexAgainEvents::AUTH_EVENT, $this, []);
+        $app->dispatch(Events::AUTH_EVENT, $this, []);
 
         if (!$is_called) $this->fail("event_callback doesn't called");
     }
