@@ -2,12 +2,16 @@
 
 namespace SilexAgain;
 
+/**
+ * Class EventDispatcher
+ * @package SilexAgain
+ */
 class EventDispatcher
 {
     private $app;
 
     /**
-     * @param SilexAgainTrait $app
+     * @param EventDispatcherTrait $app
      */
     function __construct($app)
     {

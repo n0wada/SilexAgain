@@ -2,6 +2,10 @@
 
 namespace SilexAgain;
 
+/**
+ * Interface Events
+ * @package SilexAgain
+ */
 interface Events
 {
     const BEFORE_EVENT = 'SilexAgain.Before';

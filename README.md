@@ -21,7 +21,7 @@ Slimを使う場合は以下のような感じです。
 beforeやafterメソッドは名前が衝突しないように自分で定義してください。
   
 SilexのServiceProviderは使えません。
-Providerにはコンテナではなくアプリケーション本体を渡してください。
+ServiceProviderにはコンテナではなくアプリケーション本体を渡しています。
     
 SilexAgain\ServiceProviderInterfaceまたはSilexAgain\BootableProviderInterfaceを  
 implementsしたクラスを作成するようにしてください。
