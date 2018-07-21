@@ -29,7 +29,7 @@ implementsしたクラスを作成するようにしてください。
 ```php
 <?php
 use SilexAgain\SilexAgainTrait;
-use SilexAgain\SilexAgainEvents;
+use SilexAgain\Events;
 use Slim\App;
   
 class myApp extends App
@@ -38,7 +38,7 @@ class myApp extends App
     
     function before($callback)
     {
-        $this->on(SilexAgainEvents::BEFORE_EVENT, $callback);
+        $this->on(Events::BEFORE_EVENT, $callback);
     }
 }
  
@@ -52,7 +52,7 @@ $app->before(function () {
 });
     
 $app->get("/", function () use ($app) {
-    $app->dispatch(SilexAgainEvents::BEFORE_EVENT);
+    $app->dispatch(Events::BEFORE_EVENT);
 });
     
 $app->boot()->run();
