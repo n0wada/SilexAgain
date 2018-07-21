@@ -16,15 +16,10 @@ composer require n0wada/silexagain
 ```
 
 ## Usage
-webアプリケーションSilexAgainTraitをクラスに適用することで使用します。
-Slimを使う場合は以下のような感じです。   
-beforeやafterメソッドは名前が衝突しないように自分で定義してください。
+webアプリケーションクラスにSilexAgainTraitを適用することで使用します。  
+beforeメソッドやafterメソッドは名前が衝突しないように自分で定義してください。  
   
-SilexのServiceProviderは使えません。
-ServiceProviderにはコンテナではなくアプリケーション本体を渡しています。
-    
-SilexAgain\ServiceProviderInterfaceまたはSilexAgain\BootableProviderInterfaceを  
-implementsしたクラスを作成するようにしてください。
+Slimを使う場合は以下のような感じです。   
 
 ```php
 <?php
