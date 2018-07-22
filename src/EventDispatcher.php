@@ -26,7 +26,18 @@ class EventDispatcher
      */
     public function on($eventName, $listener)
     {
-        call_user_func_array([$this->app, 'on'], func_get_args());
+        $this->app->on($eventName, $listener);
+    }
+
+    /**
+     * remove event listeners.
+     *
+     * @param string $eventName
+     * @param callable $listener
+     */
+    public function off($eventName, $listener = null)
+    {
+        $this->app->off($eventName, $listener);
     }
 
     /**

@@ -26,6 +26,31 @@ trait EventDispatcherTrait
     }
 
     /**
+     * remove event listeners.
+     *
+     * @param string $eventName
+     * @param callable $listener
+     */
+    public function off($eventName, $listener = null)
+    {
+        if (empty($this->_listeners[$eventName])) {
+            return;
+        }
+
+        if ($listener === null) {
+            unset($this->_listeners[$eventName]);
+
+        } else {
+            foreach ($this->_listeners[$eventName] as $k => $v) {
+                if ($v === $listener) {
+                    unset($this->_listeners[$eventName][$k]);
+                    return;
+                }
+            }
+        }
+    }
+
+    /**
      * Dispatches an event.
      *
      * @param string $eventName

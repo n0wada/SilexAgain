@@ -52,7 +52,35 @@ class SilexAgainTraitTest extends \PHPUnit_Framework_TestCase
 
         $app->dispatch(Events::AUTH_EVENT, []);
 
-        if (!$is_called) $this->fail("event_callback doesn't called");
+        if (!$is_called) $this->fail("event_callback isn't called");
+    }
+
+    /**
+     * test callback
+     */
+    public function testOff()
+    {
+        $is_called = false;
+        /** @var SilexAgainTrait $app */
+        $app = $this->getMockForTrait('SilexAgain\SilexAgainTrait');
+
+        $listener = function () use (&$is_called) {
+            $is_called = true;
+        };
+
+        $app->on(Events::AUTH_EVENT, $listener);
+
+        $app->off(Events::AUTH_EVENT);
+
+        $app->dispatch(Events::AUTH_EVENT);
+
+        if ($is_called) $this->fail("event_callback called");
+
+        $app->on(Events::AUTH_EVENT, $listener);
+
+        $app->off(Events::AUTH_EVENT, $listener);
+
+        if ($is_called) $this->fail("event_callback called");
     }
 
     /**
@@ -123,11 +151,17 @@ class SilexAgainTraitTest extends \PHPUnit_Framework_TestCase
             $phpunit->assertTrue(method_exists($app, 'register'));
             $phpunit->assertInstanceOf('\PHPUnit_Framework_TestCase', $phpunit);
             $phpunit->assertTrue($array === []);
-            $is_called = true;
+            $is_called = !$is_called;
         });
 
         $app->dispatch(Events::AUTH_EVENT, $this, []);
 
         if (!$is_called) $this->fail("event_callback doesn't called");
+
+        $dispatcher->off(Events::AUTH_EVENT);
+
+        $app->dispatch(Events::AUTH_EVENT, $this, []);
+
+        if (!$is_called) $this->fail("event_callback called");
     }
 }
